@@ -50,10 +50,7 @@ class Media(Base):
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True, unique=True)
-    photo = Column(String(250))
-    video = Column(String(250))
-    reel = Column(String(250))
-    live = Column(String(250))
+    type = Column(String(250), nullable=False)
     Comments = Column(String(250))
     user_id = Column(Integer, ForeignKey('post.id'))
     user = relationship(Post)
@@ -64,9 +61,8 @@ class Comments(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True, unique=True)
     data = Column(String(250))
-    user_id = Column(Integer, ForeignKey('comments.id'))
-    user_id = Column(Integer, ForeignKey('post.id'))
-    user = relationship(Post)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    post_id = Column(Integer, ForeignKey('post.id'))
 
 
     def to_dict(self):
